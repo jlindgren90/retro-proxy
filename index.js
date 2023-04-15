@@ -10,7 +10,7 @@ app.get('*', async (req, res, next) => {
   console.log('request:',httpsUrl);
   const upstream = await fetch(httpsUrl);
   const contentType = upstream.headers.get('content-type');
-  if(contentType.startsWith('text/html')) {
+  if(contentType && contentType.startsWith('text/html')) {
     res.set('Content-Type','text/html');
     res.status(upstream.status);
     res.send((await upstream.text()).replace(/https:\/\//g,'http://'));
